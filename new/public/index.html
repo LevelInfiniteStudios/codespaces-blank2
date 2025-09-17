@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Website 1</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #f4f4f4;
+            --bg-gradient: linear-gradient(120deg, #f4f4f4 60%, #e0e7ff 100%);
+            --container-bg: #fff;
+            --container-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            --sidebar-bg: #1e293b;
+            --sidebar-color: #fff;
+            --sidebar-link: #cbd5e1;
+            --sidebar-link-hover: #38bdf8;
+            --main-color: #1e293b;
+            --header-border: #e5e7eb;
+            --logo-color: #1e293b;
+            --hero-bg: linear-gradient(90deg, #38bdf8 0%, #818cf8 100%);
+            --hero-color: #fff;
+            --input-bg: #f1f5f9;
+            --input-border: #cbd5e1;
+            --input-color: #1e293b;
+            --nav-link: #2563eb;
+            --nav-link-hover-bg: #e0e7ff;
+            --nav-link-hover: #1e293b;
+            --footer-bg: #1e293b;
+            --footer-color: #cbd5e1;
+        }
+        body[data-theme="dark"] {
+            --bg-main: #181a1b;
+            --bg-gradient: linear-gradient(120deg, #181a1b 60%, #23272f 100%);
+            --container-bg: #23272f;
+            --container-shadow: 0 4px 24px rgba(0,0,0,0.32);
+            --sidebar-bg: #111827;
+            --sidebar-color: #fff;
+            --sidebar-link: #cbd5e1;
+            --sidebar-link-hover: #38bdf8;
+            --main-color: #f3f4f6;
+            --header-border: #374151;
+            --logo-color: #f3f4f6;
+            --hero-bg: linear-gradient(90deg, #0ea5e9 0%, #6366f1 100%);
+            --hero-color: #fff;
+            --input-bg: #23272f;
+            --input-border: #374151;
+            --input-color: #f3f4f6;
+            --nav-link: #60a5fa;
+            --nav-link-hover-bg: #334155;
+            --nav-link-hover: #fff;
+            --footer-bg: #111827;
+            --footer-color: #cbd5e1;
+        }
+        body {
+            font-family: 'Montserrat', Arial, sans-serif;
+            background: var(--bg-gradient);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: var(--main-color);
+        }
+        .container {
+            max-width: 1100px;
+            margin: 40px auto 0 auto;
+            background: var(--container-bg);
+            border-radius: 12px;
+            box-shadow: var(--container-shadow);
+            padding: 0;
+            display: flex;
+            min-height: 700px;
+        }
+        .sidebar {
+            background: var(--sidebar-bg);
+            color: var(--sidebar-color);
+            width: 240px;
+            border-radius: 12px 0 0 12px;
+            padding: 32px 20px 32px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .sidebar h2 {
+            font-size: 1.5rem;
+            margin-bottom: 24px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+        }
+        .sidebar li {
+            margin: 12px 0;
+        }
+        .sidebar a {
+            color: var(--sidebar-link);
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.2s;
+        }
+        .sidebar a:hover {
+            color: var(--sidebar-link-hover);
+        }
+        .main-content {
+            flex: 1;
+            padding: 40px 48px 32px 48px;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            border-bottom: 1px solid var(--header-border);
+            margin-bottom: 32px;
+            padding-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        #logo {
+            color: var(--logo-color);
+            margin: 0;
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--header-border);
+            color: var(--main-color);
+            border-radius: 6px;
+            padding: 6px 16px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s, border 0.2s;
+        }
+        .theme-toggle:hover {
+            background: var(--nav-link-hover-bg);
+            color: var(--nav-link-hover);
+        }
+        .hero {
+            background: var(--hero-bg);
+            color: var(--hero-color);
+            border-radius: 8px;
+            padding: 32px 32px 24px 32px;
+            margin-bottom: 32px;
+            box-shadow: 0 2px 8px rgba(56,189,248,0.08);
+        }
+        .hero h2 {
+            margin: 0 0 12px 0;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        .hero p {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+        #navigation {
+            margin-top: 32px;
+        }
+        #link-search input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--input-border);
+            border-radius: 6px;
+            font-size: 17px;
+            margin-bottom: 12px;
+            background: var(--input-bg);
+            color: var(--input-color);
+        }
+        #navigation-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 18px;
+        }
+        #navigation-links li {
+            margin: 0;
+        }
+        #navigation-links a {
+            text-decoration: none;
+            color: var(--nav-link);
+            font-size: 1.1rem;
+            font-weight: 500;
+            padding: 6px 14px;
+            border-radius: 4px;
+            transition: background 0.2s, color 0.2s;
+        }
+        #navigation-links a:hover {
+            background: var(--nav-link-hover-bg);
+            color: var(--nav-link-hover);
+        }
+        .content-section {
+            margin-top: 32px;
+        }
+        .content-section h3 {
+            margin-top: 0;
+        }
+        footer {
+            background: var(--footer-bg);
+            color: var(--footer-color);
+            text-align: center;
+            padding: 18px 0 12px 0;
+            font-size: 1rem;
+            border-radius: 0 0 12px 12px;
+            margin-top: 32px;
+        }
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+                min-width: 0;
+            }
+            .sidebar {
+                width: 100%;
+                border-radius: 12px 12px 0 0;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                padding: 20px 12px;
+            }
+            .main-content {
+                padding: 24px 12px 16px 12px;
+            }
+            #navigation-links {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <h2>Quick Links</h2>
+            <ul>
+                <li><a href="#">Dashboard</a></li>
+                <li><a href="#">Profile</a></li>
+                <li><a href="#">Settings</a></li>
+                <li><a href="#">Help</a></li>
+            </ul>
+        </aside>
+        <div class="main-content">
+            <div class="header">
+                <header style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+                    <h1 id="logo">Website 1</h1>
+                    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark/light mode">🌙 Dark Mode</button>
+                </header>
+            </div>
+            <section class="hero">
+                <h2>Welcome to Website 1</h2>
+                <p>Your modern, responsive, and interactive web experience. Use the navigation below to explore the site.</p>
+            </section>
+            <div id="navigation">
+                <div id="link-search">
+                    <input type="text" id="search" placeholder="Search Navigation..." />
+                </div>
+                <nav>
+                    <ul id="navigation-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#updates">Updates</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <section class="content-section" id="home">
+                <h3>Home</h3>
+                <p>This is the homepage of Website 1. Enjoy a seamless and beautiful browsing experience.</p>
+            </section>
+            <section class="content-section" id="about">
+                <h3>About</h3>
+                <p>Website 1 is a demo of a modern, advanced, and responsive website built with HTML, CSS, and JavaScript. It features a live search navigation, sidebar, and more.</p>
+            </section>
+            <section class="content-section" id="contact">
+                <h3>Contact</h3>
+                <p>Contact us at <a href="mailto:info@website1.com">info@website1.com</a> or use the form below:</p>
+                <form id="contact-form">
+                    <input type="text" id="name" placeholder="Your Name" required style="margin-bottom:8px;width:100%;padding:8px;">
+                    <input type="email" id="email" placeholder="Your Email" required style="margin-bottom:8px;width:100%;padding:8px;">
+                    <textarea id="message" placeholder="Your Message" required style="margin-bottom:8px;width:100%;padding:8px;"></textarea>
+                    <button type="submit" style="background:#2563eb;color:#fff;padding:10px 20px;border:none;border-radius:4px;font-size:1rem;cursor:pointer;">Send</button>
+                </form>
+                <div id="form-status" style="margin-top:8px;"></div>
+            </section>
+            <section class="content-section" id="updates">
+                <h3>Updates</h3>
+                <ul>
+                    <li>New navigation search bar added</li>
+                    <li>Responsive sidebar and layout</li>
+                    <li>Modern hero section and footer</li>
+                </ul>
+            </section>
+            <section class="content-section" id="blog">
+                <h3>Blog</h3>
+                <p>Stay tuned for our latest blog posts and updates!</p>
+            </section>
+            <section class="content-section" id="faq">
+                <h3>FAQ</h3>
+                <p>Find answers to common questions here.</p>
+            </section>
+            <footer>
+                &copy; 2025 Website 1. All rights reserved.
+            </footer>
+        </div>
+    </div>
+</body>
+<script>
+    // Theme toggle logic
+    const themeToggle = document.getElementById('theme-toggle');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    function setTheme(theme) {
+        document.body.setAttribute('data-theme', theme);
+        if (theme === 'dark') {
+            themeToggle.textContent = '☀️ Light Mode';
+        } else {
+            themeToggle.textContent = '🌙 Dark Mode';
+        }
+        localStorage.setItem('theme', theme);
+    }
+    // Initial theme
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        setTheme(savedTheme);
+    } else if (prefersDark) {
+        setTheme('dark');
+    } else {
+        setTheme('light');
+    }
+    themeToggle.addEventListener('click', function() {
+        const current = document.body.getAttribute('data-theme');
+        setTheme(current === 'dark' ? 'light' : 'dark');
+    });
+
+    // Advanced Searchbar filter for navigation links
+    const searchInput = document.getElementById('search');
+    const navLinks = document.getElementById('navigation-links');
+    const navItems = navLinks.getElementsByTagName('li');
+
+    searchInput.addEventListener('input', function() {
+        const filter = searchInput.value.toLowerCase();
+        let anyVisible = false;
+        for (let i = 0; i < navItems.length; i++) {
+            const a = navItems[i].getElementsByTagName('a')[0];
+            if (a.textContent.toLowerCase().indexOf(filter) > -1) {
+                navItems[i].style.display = '';
+                anyVisible = true;
+            } else {
+                navItems[i].style.display = 'none';
+            }
+        }
+        navLinks.style.display = anyVisible ? 'flex' : 'none';
+    });
+
+    // Smooth scroll for navigation links
+    navLinks.addEventListener('click', function(e) {
+        if (e.target.tagName === 'A' && e.target.getAttribute('href').startsWith('#')) {
+            e.preventDefault();
+            const targetId = e.target.getAttribute('href').substring(1);
+            const targetSection = document.getElementById(targetId);
+            if (targetSection) {
+                window.scrollTo({
+                    top: targetSection.getBoundingClientRect().top + window.scrollY - 40,
+                    behavior: 'smooth'
+                });
+            }
+        }
+    });
+
+    // Contact form handler (demo only)
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            document.getElementById('form-status').textContent = 'Thank you for contacting us! (Demo only)';
+            contactForm.reset();
+        });
+    }
+</script>
+
+</html>
