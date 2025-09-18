@@ -53,6 +53,7 @@
             --nav-link-hover: #fff;
             --footer-bg: #111827;
             --footer-color: #cbd5e1;
+            --hangman-bg: #1e293b;
         }
         body {
             font-family: 'Montserrat', Arial, sans-serif;
@@ -202,6 +203,13 @@
         .content-section h3 {
             margin-top: 0;
         }
+        .hang-man {
+            margin-top: 32px;
+            padding: 16px;
+            background: var(--hangman-bg);
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(56,189,248,0.08);
+        }
         footer {
             background: var(--footer-bg);
             color: var(--footer-color);
@@ -266,6 +274,7 @@
                         <li><a href="#home">Home</a></li>
                         <li><a href="#about">About</a></li>
                         <li><a href="#contact">Contact</a></li>
+                        <li><a href="#games">Games</a></li>
                         <li><a href="#updates">Updates</a></li>
                         <li><a href="#blog">Blog</a></li>
                         <li><a href="#faq">FAQ</a></li>
@@ -291,12 +300,34 @@
                 </form>
                 <div id="form-status" style="margin-top:8px;"></div>
             </section>
+            <section class="content-section" id="games">
+                <h3>Games</h3>
+                <p>Take a break and play a quick game of Tic-Tac-Toe!</p>
+                <div id="tic-tac-toe" style="margin: 24px 0;"></div>
+                <div id="game-status" style="margin-bottom: 12px; font-weight: bold;"></div>
+                <button id="restart-game" style="display:none;background:var(--nav-link);color:#fff;padding:8px 18px;border:none;border-radius:4px;font-size:1rem;cursor:pointer;">Restart Game</button>
+            </section>
+            <section class="hang-man" id="hangman">
+                <h3>Hangman</h3>
+                <div id="hangman-game">
+                    <div id="hangman-status" style="margin-bottom: 12px; font-weight: bold;">Coming soon!</div>
+                    <div id="hangman-word" style="font-size: 1.5rem; letter-spacing: 4px; margin-bottom: 12px;"></div>
+                    <div id="hangman-letters" style="margin-bottom: 12px;"></div>
+                    <div id="hangman-attempts" style="font-weight: bold;"></div>
+                    <div id="hangman-image" style="margin-top: 12px;"></div>
+                    <div id="hang-man-word" style="font-size: 1.5rem; letter-spacing: 4px; margin-bottom: 12px;"></div>
+                </div>
+            </section>
             <section class="content-section" id="updates">
                 <h3>Updates</h3>
                 <ul>
                     <li>New navigation search bar added</li>
                     <li>Responsive sidebar and layout</li>
                     <li>Modern hero section and footer</li>
+                    <li>Games section with Tic-Tac-Toe</li>
+                    <li>Dark/Light mode toggle</li>
+                    <li>More content and interactivity</li>
+                    <li>Hangman game section</li>
                 </ul>
             </section>
             <section class="content-section" id="blog">
@@ -383,6 +414,71 @@
             document.getElementById('form-status').textContent = 'Thank you for contacting us! (Demo only)';
             contactForm.reset();
         });
+    }
+
+    // --- Tic-Tac-Toe Game ---
+    const gameContainer = document.getElementById('tic-tac-toe');
+    const gameStatus = document.getElementById('game-status');
+    const restartBtn = document.getElementById('restart-game');
+    if (gameContainer) {
+        let board, currentPlayer, gameActive;
+        function renderBoard() {
+            gameContainer.innerHTML = '';
+            for (let i = 0; i < 9; i++) {
+                const cell = document.createElement('button');
+                cell.className = 'ttt-cell';
+                cell.style.width = '60px';
+                cell.style.height = '60px';
+                cell.style.fontSize = '2rem';
+                cell.style.margin = '2px';
+                cell.style.background = 'var(--input-bg)';
+                cell.style.color = 'var(--main-color)';
+                cell.style.border = '1px solid var(--input-border)';
+                cell.style.borderRadius = '8px';
+                cell.dataset.index = i;
+                cell.textContent = board[i];
+                cell.disabled = board[i] || !gameActive;
+                cell.addEventListener('click', handleMove);
+                gameContainer.appendChild(cell);
+                if ((i + 1) % 3 === 0) gameContainer.appendChild(document.createElement('br'));
+            }
+        }
+        function handleMove(e) {
+            const idx = +e.target.dataset.index;
+            if (!gameActive || board[idx]) return;
+            board[idx] = currentPlayer;
+            if (checkWin(currentPlayer)) {
+                gameStatus.textContent = `Player ${currentPlayer} wins!`;
+                gameActive = false;
+                restartBtn.style.display = 'inline-block';
+            } else if (board.every(cell => cell)) {
+                gameStatus.textContent = "It's a draw!";
+                gameActive = false;
+                restartBtn.style.display = 'inline-block';
+            } else {
+                currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+                gameStatus.textContent = `Player ${currentPlayer}'s turn`;
+            }
+            renderBoard();
+        }
+        function checkWin(player) {
+            const wins = [
+                [0,1,2],[3,4,5],[6,7,8],
+                [0,3,6],[1,4,7],[2,5,8],
+                [0,4,8],[2,4,6]
+            ];
+            return wins.some(line => line.every(i => board[i] === player));
+        }
+        function startGame() {
+            board = Array(9).fill('');
+            currentPlayer = 'X';
+            gameActive = true;
+            gameStatus.textContent = `Player ${currentPlayer}'s turn`;
+            restartBtn.style.display = 'none';
+            renderBoard();
+        }
+        restartBtn.addEventListener('click', startGame);
+        startGame();
     }
 </script>
 
